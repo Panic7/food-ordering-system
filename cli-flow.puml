@@ -1,0 +1,59 @@
+@startuml
+
+title Restaurant Ordering System - CLI Flow
+
+start
+
+:Welcome to the Restaurant Ordering System;
+:What'll it be?;
+
+:Enter your choice:\n1. Lunch\n2. Drink;
+
+partition "Main Menu" {
+  if (choice?) then (Lunch)
+    partition "Lunch Selection" {
+      :Choose cuisine of the main course;
+      :Display main course options;
+      note left: Based on chosen cuisine;
+      :Choose a main course;
+      :Display dessert options;
+      :Choose a dessert;
+      :Do you want to order a drink? (yes/no);
+
+      if (Drink?) then (Yes)
+        partition "Drink Selection" {
+          :Display drink options;
+          :Choose a drink;
+          :Display drink-specific addons;
+          note left: (e.g., ice cubes, lemon)
+          :Choose drink addons;
+        }
+      else (No)
+      endif
+    }
+  else (Drink)
+    partition "Drink Selection" {
+      :Display drink options;
+      :Choose a drink;
+      :Display drink-specific addons;
+      note right: (e.g., ice cubes, lemon)
+      :Choose drink addons;
+    }
+  endif
+}
+
+partition "Order Confirmation" {
+  :Display summary of selected items with prices;
+  :Confirm order? (yes/no);
+
+  if (Confirm order?) then (Yes)
+    :Process order;
+    :Thank the customer;
+  else (No)
+    :Cancel order and exit;
+  endif
+}
+
+stop
+
+@enduml
