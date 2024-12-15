@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password: sa
+    driverClassName: org.h2.Driver
+    hikari:
+      minimumIdle: 1
+      maximum-pool-size: 5
+      maxLifetime: 300000
+      idle-timeout: 10000
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+      auto-commit: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        id:
+          new_generator_mappings: true
+        jdbc:
+          time_zone: UTC
+          batch_size: 15
+        order_inserts: true
+        order_updates: true
+        connection:
+          provider_disables_autocommit: true
+        query:
+          fail_on_pagination_over_collection_fetch: true
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+hashids.salt: ESLCuo33NTW8VVA2
