@@ -1,38 +1,45 @@
 @startuml
-abstract class MenuItem {
+class MenuItem {
+    -id: Integer
+    -name: String
+    -price: Double
+    -category: MenuItemCategory
+    -cuisine: Cuisine
+    -addons: List<Addon>
+}
+
+class Cuisine {
+    -id: Integer
+    -name: String
+}
+
+class MenuItemCategory {
+    -id: Integer
+    -name: String
+}
+
+class Addon {
     -id: Integer
     -name: String
     -price: Double
 }
 
-class Drink extends MenuItem {
-    -drinkAddons: List<DrinkAddon>
-}
-
-class Meal extends MenuItem {
-    -cuisine: MealCuisine
-}
-
-class Dessert extends MenuItem {
-}
-
-class DrinkAddon {
-    -id: Integer
-    -name: String
-    -price: String
-}
-
-class MealCuisine {
-    -id: Integer;
-    -name: String;
-}
-
 class Order {
     -id: Integer
-    -items: List<MenuItem>
+    -orderItems: List<OrderItem>
 }
 
-Order "1..*" o-- "0..*" MenuItem
-Meal "1" *-- "1..*" MealCuisine
-Drink "0..*" *-- "1..*" DrinkAddon
+class OrderItem {
+    -id: Integer
+    -order: Order
+    -menuItem: MenuItem
+    -addons: List<Addon>
+}
+
+Order "1" *-- "1..*" OrderItem
+OrderItem "1" *-- "0..*" MenuItem
+OrderItem "0..*" o-- "0..*" Addon
+MenuItem "0..*" *-- "0..*" Addon
+MenuItem "0..*" *-- "1" MenuItemCategory
+MenuItem "0..*" *-- "1" Cuisine
 @enduml

@@ -1,13 +1,17 @@
 package com.xformation.food_ordering_system.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,18 +31,28 @@ import java.util.Objects;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "orders")
-public class Order {
+@Table(name = "order_items", indexes = {
+        @Index(name = "idx_order_items_menu_item_id", columnList = "menu_item_id"),
+        @Index(name = "idx_order_items_order_id", columnList = "order_id")
+})
+public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
+    @NotNull
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private MenuItem menuItem;
+
     @Builder.Default
     @ToString.Exclude
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "order_id")
-    private List<OrderItem> orderItems = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            inverseJoinColumns = @JoinColumn(name = "addon_id")
+    )
+    private List<Addon> addons = new ArrayList<>();
 
     @Override
     public final boolean equals(Object o) {
@@ -51,8 +65,8 @@ public class Order {
                 ? hibernateProxy.getHibernateLazyInitializer().getPersistentClass()
                 : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Order order = (Order) o;
-        return getId() != null && Objects.equals(getId(), order.getId());
+        OrderItem orderItem = (OrderItem) o;
+        return getId() != null && Objects.equals(getId(), orderItem.getId());
     }
 
     @Override

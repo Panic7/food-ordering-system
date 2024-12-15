@@ -1,0 +1,15 @@
+DROP TABLE if EXISTS addons CASCADE;
+DROP TABLE if EXISTS cuisines CASCADE;
+DROP TABLE if EXISTS menu_item_categories CASCADE;
+DROP TABLE if EXISTS menu_items CASCADE;
+DROP TABLE if EXISTS menu_items_addons CASCADE;
+DROP TABLE if EXISTS order_items CASCADE;
+DROP TABLE if EXISTS order_items_addons CASCADE;
+DROP TABLE if EXISTS orders CASCADE;
+
+DROP SEQUENCE if EXISTS addons_seq CASCADE;
+DROP SEQUENCE if EXISTS cuisines_seq CASCADE;
+DROP SEQUENCE if EXISTS menu_item_categories_seq CASCADE;
+DROP SEQUENCE if EXISTS menu_items_seq CASCADE;
+DROP SEQUENCE if EXISTS order_items_seq CASCADE;
+DROP SEQUENCE if EXISTS orders_seq CASCADE;
