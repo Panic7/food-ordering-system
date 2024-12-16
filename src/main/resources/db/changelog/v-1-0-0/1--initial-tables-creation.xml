@@ -1,0 +1,20 @@
+<databaseChangeLog
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+  <changeSet id="1" author="Vladislav Jaloba">
+
+    <sqlFile dbms="h2"
+             relativeToChangelogFile="true"
+             path="/sql/1--initial-tables-creation.sql"/>
+
+    <rollback>
+      <sqlFile dbms="h2"
+               relativeToChangelogFile="true"
+               path="sql/rollback/1--rb-initial-tables-creation.sql"/>
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>

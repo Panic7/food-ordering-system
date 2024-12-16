@@ -1,0 +1,45 @@
+@startuml
+class MenuItem {
+    -id: Integer
+    -name: String
+    -price: Double
+    -category: MenuItemCategory
+    -cuisine: Cuisine
+    -addons: List<Addon>
+}
+
+class Cuisine {
+    -id: Integer
+    -name: String
+}
+
+class MenuItemCategory {
+    -id: Integer
+    -name: String
+}
+
+class Addon {
+    -id: Integer
+    -name: String
+    -price: Double
+}
+
+class Order {
+    -id: Integer
+    -orderItems: List<OrderItem>
+}
+
+class OrderItem {
+    -id: Integer
+    -order: Order
+    -menuItem: MenuItem
+    -addons: List<Addon>
+}
+
+Order "1" *-- "1..*" OrderItem
+OrderItem "1" *-- "0..*" MenuItem
+OrderItem "0..*" o-- "0..*" Addon
+MenuItem "0..*" *-- "0..*" Addon
+MenuItem "0..*" *-- "1" MenuItemCategory
+MenuItem "0..*" *-- "1" Cuisine
+@enduml

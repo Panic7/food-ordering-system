@@ -1,13 +1,22 @@
 package com.xformation.food_ordering_system;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FoodOrderingSystemApplication {
+@RequiredArgsConstructor
+public class FoodOrderingSystemApplication implements CommandLineRunner {
 
-	public static void main(String[] args) {
-		SpringApplication.run(FoodOrderingSystemApplication.class, args);
-	}
+    private final OrderCLI orderCLI;
 
+    public static void main(String[] args) {
+        SpringApplication.run(FoodOrderingSystemApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) {
+        orderCLI.start();
+    }
 }
