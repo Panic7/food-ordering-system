@@ -2,6 +2,7 @@ package com.xformation.food_ordering_system.repository;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.xformation.food_ordering_system.OrderCLI;
 import com.xformation.food_ordering_system.model.Cuisine;
 import com.xformation.food_ordering_system.model.MenuItem;
 import com.xformation.food_ordering_system.model.MenuItemCategory;
@@ -10,9 +11,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 @DataJpaTest
 class MenuItemRepositoryTest {
+
+    @MockitoBean
+    private OrderCLI orderCLI;
 
     @Autowired
     private TestEntityManager testEntityManager;
